@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="main-html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,6 +26,49 @@
             line-height: 1.6;
             color: var(--dark-text);
             overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Translation Button */
+        .translate-btn {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--accent-yellow) 0%, #f39c12 100%);
+            color: var(--dark-text);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .translate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .translate-btn.loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Language specific styling */
+        .lang-en {
+            font-family: 'Arial', sans-serif;
+            direction: ltr;
+        }
+
+        .lang-en .translate-btn {
+            left: 20px;
+            right: auto;
         }
 
         /* Header */
@@ -346,6 +389,21 @@
             top: 0.5rem;
         }
 
+        .lang-en .product-features li {
+            padding-left: 1.5rem;
+            padding-right: 0;
+        }
+
+        .lang-en .product-features li::before {
+            left: 0;
+            right: auto;
+        }
+
+        .lang-en .product-badge {
+            left: 15px;
+            right: auto;
+        }
+
         /* Contact Section */
         .contact {
             background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-brown) 100%);
@@ -428,92 +486,7 @@
             padding: 2rem;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        /* Digital Marketing Elements */
-        .promo-banner {
-            background: linear-gradient(135deg, var(--accent-yellow) 0%, #f39c12 100%);
-            color: var(--dark-text);
-            padding: 1rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-
-        .promo-banner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        .promo-text {
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .discount-badge {
-            display: inline-block;
-            background: #e74c3c;
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-right: 1rem;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
+        /* Testimonial */
         .testimonial {
             background: rgba(255,255,255,0.95);
             padding: 2rem;
@@ -531,6 +504,11 @@
             top: -10px;
             right: 20px;
             opacity: 0.3;
+        }
+
+        .lang-en .testimonial::before {
+            left: 20px;
+            right: auto;
         }
 
         .testimonial-text {
@@ -567,193 +545,403 @@
             color: white;
             opacity: 0.9;
         }
+
+        .guarantee-badge, .urgency-timer {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .guarantee-badge {
+            background: rgba(46, 204, 113, 0.1);
+            color: #27ae60;
+            border: 1px solid #27ae60;
+        }
+
+        .urgency-timer {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .translate-btn {
+                top: 80px;
+                right: 10px;
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+
+            .lang-en .translate-btn {
+                left: 10px;
+                right: auto;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Hidden content */
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <img src="logoo.png" alt="تربة Logo" style="height: 50px;">
-            <ul class="nav-links">
-                <li><a href="#home">الرئيسية</a></li>
-                <li><a href="#about">من نحن</a></li>
-                <li><a href="#products">منتجاتنا</a></li>
-                <li><a href="#contact">اتصل بنا</a></li>
-            </ul>
-        </nav>
-        
-    </header>
+    <!-- Translation Button -->
+    <button class="translate-btn" onclick="toggleLanguage()">
+        <span id="translate-icon">🌐</span>
+        <span id="translate-text">English</span>
+    </button>
 
-    <section id="home" class="hero">
-        <div class="floating-leaf" style="top: 20%; right: 10%;">🌿</div>
-        <div class="floating-leaf" style="top: 60%; left: 15%; animation-delay: -2s;">🍃</div>
-        <div class="floating-leaf" style="top: 30%; left: 80%; animation-delay: -4s;">🌱</div>
-        
-        <div class="hero-content fade-in">
-            <img src="logoo.png" alt="تربة Logo" style="height: 50px;">
-            <p>حلول زراعية متطورة لمستقبل أخضر مستدام</p>
-            <p>منتجات عالية الجودة من Media Pro & Lateef</p>
-            <a href="#products" class="cta-button">اكتشف منتجاتنا</a>
-        </div>
-    </section>
+    <!-- Arabic Content -->
+    <div id="arabic-content">
+        <header>
+            <nav>
+                <img src="logoo.png" alt="تربة Logo" style="height: 50px;">
+                <ul class="nav-links">
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#about">من نحن</a></li>
+                    <li><a href="#products">منتجاتنا</a></li>
+                    <li><a href="#contact">اتصل بنا</a></li>
+                </ul>
+            </nav>
+        </header>
 
-    <section id="about" class="about">
-        <div class="section-title fade-in">من نحن</div>
-        <div class="about-content">
-            <div class="about-text fade-in">
-                <p>نحن شركة رائدة في مجال الحلول الزراعية المتطورة، نقدم منتجات عالية الجودة تهدف إلى تحسين الإنتاجية الزراعية وحماية البيئة.</p>
-                <p>بفضل خبرتنا الواسعة وشراكتنا مع أفضل المختبرات، نطور منتجات مبتكرة تلبي احتياجات المزارعين العصريين.</p>
-                <p>رؤيتنا هي بناء مستقبل زراعي مستدام يجمع بين الإنتاجية العالية والحفاظ على البيئة.</p>
+        <section id="home" class="hero">
+            <div class="floating-leaf" style="top: 20%; right: 10%;">🌿</div>
+            <div class="floating-leaf" style="top: 60%; left: 15%; animation-delay: -2s;">🍃</div>
+            <div class="floating-leaf" style="top: 30%; left: 80%; animation-delay: -4s;">🌱</div>
+            
+            <div class="hero-content fade-in">
+                <img src="logoo.png" alt="تربة Logo" style="height: 50px;">
+                <p>تربة هو محفّز حيوي طبيعي يُستخدم لتحسين نمو النباتات وتعزيز مقاومتها للظروف البيئية الصعبة. تم تطويره في مختبرات متخصصة، ويُعدّ حلاً فعّالاً ومستداماً لدعم الفلاحة بطريقة صديقة للبيئة.</p>
+                <a href="#products" class="cta-button">اكتشف منتجاتنا</a>
             </div>
-           
-        
-    </section>
+        </section>
 
-    <section id="products">
-        <div class="section-title fade-in">منتجاتنا</div>
-        <div class="products-grid">
-            <div class="product-card fade-in">
-                <div class="product-badge">الأكثر مبيعاً</div>
-                <div class="product-image">
-                    <!-- Replace with your product image -->
-                    <div class="image-placeholder">
-                        <div>📦</div>
-                        <small>(5 لتر)</small>
+        <section id="about" class="about">
+            <div class="section-title fade-in">من نحن</div>
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <p>نحن شركة رائدة في مجال الحلول الزراعية المتطورة، نقدم منتجات عالية الجودة تهدف إلى تحسين الإنتاجية الزراعية وحماية البيئة.</p>
+                    <p>بفضل خبرتنا الواسعة وشراكتنا مع أفضل المختبرات، نطور منتجات مبتكرة تلبي احتياجات المزارعين العصريين.</p>
+                    <p>رؤيتنا هي بناء مستقبل زراعي مستدام يجمع بين الإنتاجية العالية والحفاظ على البيئة.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="products">
+            <div class="section-title fade-in">منتجاتنا</div>
+            <div class="products-grid">
+                <div class="product-card fade-in">
+                    <div class="product-badge">الأكثر مبيعاً</div>
+                    <div class="product-image">
+                        <div class="image-placeholder">
+                            <div>📦</div>
+                            <small>(5 لتر)</small>
+                        </div>
+                    </div>
+                    <h3>تربة عضوية متطورة - 5 لتر</h3>
+                    <p>منتج متخصص للنباتات المنزلية والحدائق الصغيرة</p>
+                    <ul class="product-features">
+                        <li>غني بالمواد العضوية الطبيعية</li>
+                        <li>يحسن من تهوية التربة</li>
+                        <li>يحتفظ بالرطوبة بشكل مثالي</li>
+                        <li>مناسب لجميع أنواع النباتات</li>
+                        <li>خالي من المواد الكيميائية الضارة</li>
+                    </ul>
+                    <div class="guarantee-badge">🛡️ ضمان النتائج أو استرداد المال</div>
+                    <div class="urgency-timer">⏰ عرض محدود - باقي 48 ساعة</div>
+                </div>
+                
+                <div class="product-card fade-in">
+                    <div class="product-badge">جديد</div>
+                    <div class="product-image">
+                        <img src="Design sans titre (2).png" alt="5 Liter Product">
+                    </div>
+                    <h3>تربة احترافية - 1 لتر</h3>
+                    <p>تركيبة مركزة للاستخدام المتخصص</p>
+                    <ul class="product-features">
+                        <li>تركيز عالي من العناصر الغذائية</li>
+                        <li>مثالي للشتلات الصغيرة</li>
+                        <li>سهل الاستخدام والتطبيق</li>
+                        <li>نتائج سريعة ومضمونة</li>
+                        <li>اقتصادي وفعال</li>
+                    </ul>
+                    <div class="guarantee-badge">✅ مجرب من آلاف المزارعين</div>
+                    <div class="urgency-timer">🔥 الكمية محدودة - اطلب الآن</div>
+                </div>
+            </div>
+
+            <div class="testimonial fade-in">
+                <p class="testimonial-text">منتجات تربة غيّرت حديقتي بالكامل! النباتات أصبحت أكثر خضرة وحيوية. أنصح بها بشدة لكل محبي الزراعة.</p>
+                <p class="testimonial-author">- أحمد محمد، مزارع من صفاقس</p>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="section-title" style="color: var(--accent-yellow);">اتصل بنا</div>
+            
+            <div class="stats-container fade-in">
+                <div class="stat-item">
+                    <span class="stat-number">5000+</span>
+                    <span class="stat-label">عميل راضٍ</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">معدل الرضا</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">دعم فني</span>
+                </div>
+            </div>
+
+            <div class="contact-info fade-in">
+                <div class="contact-item">
+                    <h3>📧 البريد الإلكتروني</h3>
+                    <p>Torba.tunisie@gmail.com</p>
+                </div>
+                
+                <div class="contact-item">
+                    <h3>📱 الهاتف</h3>
+                    <p>095 115 20</p>
+                </div>
+                
+                <div class="contact-item">
+                    <h3>📍 العنوان</h3>
+                    <p>تونس، تونس</p>
+                    <p>المكتب الرئيسي</p>
+                </div>
+
+                <div class="contact-item">
+                    <h3>🌐 تابعنا على</h3>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span style="font-size: 1.2rem;">📘</span>
+                        <span style="font-weight: bold;">Torba-تربة</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.2rem;">📷</span>
+                        <span style="font-weight: bold;">@torba_tn</span>
                     </div>
                 </div>
-                <h3>تربة عضوية متطورة - 5 لتر</h3>
-                <p>منتج متخصص للنباتات المنزلية والحدائق الصغيرة</p>
-                <ul class="product-features">
-                    <li>غني بالمواد العضوية الطبيعية</li>
-                    <li>يحسن من تهوية التربة</li>
-                    <li>يحتفظ بالرطوبة بشكل مثالي</li>
-                    <li>مناسب لجميع أنواع النباتات</li>
-                    <li>خالي من المواد الكيميائية الضارة</li>
-                </ul>
-                <div class="guarantee-badge">🛡️ ضمان النتائج أو استرداد المال</div>
-                <div class="urgency-timer">⏰ عرض محدود - باقي 48 ساعة</div>
             </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 تربة by Enactus Esprit ICI</p>
+        </footer>
+    </div>
+
+    <!-- English Content -->
+    <div id="english-content" class="hidden">
+        <header>
+            <nav>
+                <img src="logoo.png" alt="Torba Logo" style="height: 50px;">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#products">Our Products</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="home" class="hero">
+            <div class="floating-leaf" style="top: 20%; right: 10%;">🌿</div>
+            <div class="floating-leaf" style="top: 60%; left: 15%; animation-delay: -2s;">🍃</div>
+            <div class="floating-leaf" style="top: 30%; left: 80%; animation-delay: -4s;">🌱</div>
             
-            <div class="product-card fade-in">
-                <div class="product-badge">جديد</div>
-                <div class="product-image">
-                    <img src="Design sans titre (2).png" alt="5 Liter Product">                    <div class="image-placeholder">
+            <div class="hero-content fade-in">
+                <img src="logoo.png" alt="Torba Logo" style="height: 50px;">
+                <p>Torba is a natural biostimulant used to improve plant growth and enhance their resistance to harsh environmental conditions. Developed in specialized laboratories, it is an effective and sustainable solution to support agriculture in an environmentally friendly way.</p>
+                <a href="#products" class="cta-button">Discover Our Products</a>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="section-title fade-in">About Us</div>
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <p>We are a leading company in advanced agricultural solutions, providing high-quality products aimed at improving agricultural productivity and protecting the environment.</p>
+                    <p>Thanks to our extensive experience and partnerships with the best laboratories, we develop innovative products that meet the needs of modern farmers.</p>
+                    <p>Our vision is to build a sustainable agricultural future that combines high productivity with environmental conservation.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="products">
+            <div class="section-title fade-in">Our Products</div>
+            <div class="products-grid">
+                <div class="product-card fade-in">
+                    <div class="product-badge">Best Seller</div>
+                    <div class="product-image">
+                        <div class="image-placeholder">
+                            <div>📦</div>
+                            <small>(5 Liter)</small>
+                        </div>
                     </div>
+                    <h3>Advanced Organic Soil - 5 Liter</h3>
+                    <p>Specialized product for houseplants and small gardens</p>
+                    <ul class="product-features">
+                        <li>Rich in natural organic matter</li>
+                        <li>Improves soil aeration</li>
+                        <li>Retains moisture perfectly</li>
+                        <li>Suitable for all plant types</li>
+                        <li>Free from harmful chemicals</li>
+                    </ul>
+                    <div class="guarantee-badge">🛡️ Results guaranteed or money back</div>
+                    <div class="urgency-timer">⏰ Limited offer - 48 hours left</div>
+                </div>  
+                <div class="product-card fade-in">
+                    <div class="product-badge">New</div>
+                    <div class="product-image">
+                        <img src="Design sans titre (2).png" alt="1 Liter Product">
+                    </div>
+                    <h3>Professional Soil - 1 Liter</h3>
+                    <p>Concentrated formula for specialized use</p>
+                    <ul class="product-fe
+atures">
+                        <li>High concentration of nutrients</li>
+                        <li>Ideal for small seedlings</li>
+                        <li>Easy to use and apply</li>
+                        <li>Quick and guaranteed results</li>
+                        <li>Cost-effective and efficient</li>
+                    </ul>
+                    <div class="guarantee-badge">✅ Tested by thousands of farmers</div>
+                    <div class="urgency-timer">🔥 Limited quantity - Order now</div>
                 </div>
-                <h3>تربة احترافية - 1 لتر</h3>
-                <p>تركيبة مركزة للاستخدام المتخصص</p>
-                <ul class="product-features">
-                    <li>تركيز عالي من العناصر الغذائية</li>
-                    <li>مثالي للشتلات الصغيرة</li>
-                    <li>سهل الاستخدام والتطبيق</li>
-                    <li>نتائج سريعة ومضمونة</li>
-                    <li>اقتصادي وفعال</li>
-                </ul>
-                <div class="guarantee-badge">✅ مجرب من آلاف المزارعين</div>
-                <div class="urgency-timer">🔥 الكمية محدودة - اطلب الآن</div>
             </div>
-        </div>
-
-        <!-- Customer Testimonial -->
-        <div class="testimonial fade-in">
-            <p class="testimonial-text">منتجات تربة غيّرت حديقتي بالكامل! النباتات أصبحت أكثر خضرة وحيوية. أنصح بها بشدة لكل محبي الزراعة.</p>
-            <p class="testimonial-author">- أحمد محمد، مزارع من صفاقس</p>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="section-title" style="color: var(--accent-yellow);">اتصل بنا</div>
-        
-        <!-- Success Stats -->
-        <div class="stats-container fade-in">
-            <div class="stat-item">
-                <span class="stat-number">5000+</span>
-                <span class="stat-label">عميل راضٍ</span>
+            <div class="testimonial fade-in">
+                <p class="testimonial-text">Torba products transformed my garden completely! The plants are greener and more vibrant. I highly recommend them to all gardening enthusiasts.</p>
+                <p class="testimonial-author">- Ahmed Mohamed, Farmer from Sfax</p>
             </div>
-            <div class="stat-item">
-                <span class="stat-number">98%</span>
-                <span class="stat-label">معدل الرضا</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">24/7</span>
-                <span class="stat-label">دعم فني</span>
-            </div>
-        </div>
-
-        <div class="contact-info fade-in">
-            <div class="contact-item">
-                <h3>📧 البريد الإلكتروني</h3>
-                <p>info@tarbiya.com</p>
-                <p>sales@tarbiya.com</p>
-            </div>
+        </section>
+        <section id="contact" class="contact">
+            <div class="section-title" style="color: var(--accent-yellow);">Contact Us</div>
             
-            <div class="contact-item">
-                <h3>📱 الهاتف</h3>
-                <p>+216 XX XXX XXX</p>
-                <p>+216 XX XXX XXX</p>
-            </div>
-            
-            <div class="contact-item">
-                <h3>📍 العنوان</h3>
-                <p>تونس، تونس</p>
-                <p>المكتب الرئيسي</p>
-            </div>
+            <div class="stats-container fade-in">
+                <div class="stat-item">
+                    <span class="stat-number">5000+</span>
+                    <span class="stat-label
+">Satisfied Customers</span>
 
-            <div class="contact-item">
-                <h3>🌐 تابعنا على</h3>
-                <div class="social-links">
-                    <a href="#" class="social-link instagram" title="Instagram">📷</a>
-                    <a href="#" class="social-link facebook" title="Facebook">📘</a>
                 </div>
-                <p style="margin-top: 1rem; font-size: 0.9rem;">@tarbiya_official</p>
+                <div class="stat-item">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Satisfaction Rate</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label
+">Technical Support</span>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <footer>
-        <p>&copy; 2024 تربة by Enactus Esprit ICI</p>
-    </footer>
-
+            <div class="contact-info fade-in">
+                <div class="contact-item">
+                    <h3>📧 Email</h3>
+                    <p>info@torba.com</p>
+                </div>
+                <div class="contact-item">
+                    <h3>📞 Phone</h3>
+                    <p>+216 70 000 000</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <h3>📍 Address</h3>
+                <p>Tunis, Tunisia</p>
+                <p>Main Office</p>
+            </div>
+            <div class="contact-item">
+                <h3>🌐 Follow Us On</h3>
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <span style="font-size: 1.2rem;">📘</span>
+                    <span style="font-weight: bold;">Torba</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 1.2rem;">📷</span>
+                    <span style="font-weight: bold;">@torba_tn</span>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <p>&copy; 2024 Torba by Enactus Esprit ICI</p>
+        </footer>
+    </div>
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+        const translateBtn = document.querySelector('.translate-btn');
+        const translateIcon = document.getElementById('translate-icon');
+        const translateText = document.getElementById('translate-text');
+        const arabicContent = document.getElementById('arabic-content');
+        const englishContent = document.getElementById('english-content');
 
-        // Add scroll animation effects
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        let isEnglish = false;
 
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.product-card, .about-text, .about-image').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Add subtle parallax effect to hero
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        function toggleLanguage() {
+            isEnglish = !isEnglish;
+            if (isEnglish) {
+                arabicContent.classList.add('hidden');
+                englishContent.classList.remove('hidden');
+                translateIcon.textContent = '🌐';
+                translateText.textContent = 'العربية';
+                translateBtn.classList.add('loading');
+            } else {
+                arabicContent.classList.remove('hidden');
+                englishContent.classList.add('hidden');
+                translateIcon.textContent = '🌐';
+                translateText.textContent = 'English';
+                translateBtn.classList.remove('loading');
             }
+        }
+        // Initial setup
+        document.addEventListener('DOMContentLoaded', () => {
+            translateBtn.classList.remove('loading');
+            if (isEnglish) {
+                arabicContent.classList.add('hidden');
+                englishContent.classList.remove('hidden');
+            } else {
+                arabicContent.classList.remove('hidden');
+                englishContent.classList.add('hidden');
+            }
+        });
+        // Floating leaf animation
+        const floatingLeaves = document.querySelectorAll('.floating-leaf');
+        floatingLeaves.forEach(leaf => {
+            leaf.style.animationDuration = `${Math.random() * 2 + 3}s`;
         });
     </script>
 </body>
-</html>
